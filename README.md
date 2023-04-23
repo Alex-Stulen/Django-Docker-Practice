@@ -69,3 +69,14 @@ Check the [./backend/Makefile](./backend/Makefile) to familiarize yourself with 
 Create a superuser using the createsuperuser command, and then you can log in to the admin panel.
 
 ---
+
+## Common Errors:
+
+```Error response from daemon: driver failed programming external connectivity on endpoint django-docker-practice-db-1 (97e7ad70618f1c4a7c3359500a6eece1797d4e7845e8de767fa8205474ccf11a): Error starting userland proxy: listen tcp4 0.0.0.0:5432: bind: address already in use```
+
+**Error Explanation:**
+Means that container with database was failed because database port 5432 already in use, 
+and container with database can`t be started. 
+
+**Error solution:** stop postgres service on your PC.
+For Linux ```systemctl stop postgresql.service```.
