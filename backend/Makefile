@@ -8,4 +8,4 @@ createsuperuser:
 	sudo docker-compose run --rm web python manage.py createsuperuser
 
 collectstatic:
-	sudo docker-compose run --rm web python manage.py createsuperuser --no-input
+	sudo docker-compose run --rm web python manage.py collectstatic --no-input
