@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:15.2-alpine
+    env_file:
+      - backend/.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  web:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_started
+    env_file:
+      - backend/.env
+    volumes:
+      - ./backend:/web/djproject
+      - static_files:/web/djproject/static:delegated
+      - media_files:/web/djproject/media:delegated
+    ports:
+      - "8000:8000"
+
+  nginx:
+    image: nginx:1.23.4-alpine
+    volumes:
+      - ./backend/deploy/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./backend/static/:/var/www/static/
+      - ./backend/media/:/var/www/media/
+    ports:
+      - "80:80"
+    depends_on:
+      web:
+        condition: service_started
+
+volumes:
+  postgres_data:
+  static_files:
+  media_files:
