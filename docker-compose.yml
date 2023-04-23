@@ -10,7 +10,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
-  web:
+  backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -20,9 +20,9 @@ services:
     env_file:
       - backend/.env
     volumes:
-      - ./backend:/web/djproject
-      - ./backend/static/:/web/djproject/static:delegated
-      - ./backend/media/:/web/djproject/media:delegated
+      - ./backend:/web/djproject/backend/
+      - ./backend/static/:/web/djproject/backend/static:delegated
+      - ./backend/media/:/web/djproject/backend/media:delegated
     ports:
       - "8000:8000"
 
@@ -35,7 +35,7 @@ services:
     ports:
       - "80:80"
     depends_on:
-      web:
+      backend:
         condition: service_started
 
 volumes:
