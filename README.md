@@ -19,7 +19,7 @@ The practice of using docker on a project.
 
 ## Project installation:
 
-+ ```git clone ...```
++ ```git clone https://github.com/Alex-Stulen/Django-Docker-Practice.git```
 + Create an **.env** file in the [./backend](./backend) dir, using the [./backend/.env.sample](./backend/.env.sample) file as an example
 + ```docker-compose up``` or ```docker-compose up -d``` if you want to start the project in daemon mode.
 + Then go to [localhost](http://localhost) to use the website
